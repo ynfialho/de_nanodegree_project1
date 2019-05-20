@@ -63,7 +63,7 @@ user_table_insert = """
     (user_id, firstName, lastName, gender, level) 
     VALUES (%s, %s, %s, %s, %s) 
     ON CONFLICT (user_id) DO UPDATE SET 
-    level=excluded.level """
+    level = excluded.level """
 
 song_table_insert = """
     INSERT INTO dim_songs 
@@ -94,7 +94,7 @@ songplay_table_insert = """
 
 # FIND SONGS BY ARTIST ID
 song_select_join = """
-    SELECT s.song_id, a.artist_id FROM songs s, artists a
+    SELECT s.song_id, a.artist_id FROM dim_songs s, dim_artists a
     WHERE s.artist_id = a.artist_id  
         AND s.title = %s
         AND a.name = %s
@@ -102,17 +102,17 @@ song_select_join = """
 
 # FIND USER BY ID
 user_select = """
-    SELECT COUNT(*) FROM users u
+    SELECT COUNT(*) FROM dim_users u
     WHERE u.user_id = %s"""
 
 # FIND SONG BY ID
 song_select = ("""
-    SELECT COUNT(*) FROM songs s
+    SELECT COUNT(*) FROM dim_songs s
     WHERE s.song_id = %s""")
 
 # FIND ARTIST BY ID
 artist_select = """
-    SELECT COUNT(*) FROM artists a
+    SELECT COUNT(*) FROM dim_artists a
     WHERE a.artist_id = %s"""
 
 # QUERY LISTS
