@@ -1,26 +1,26 @@
 # DROP TABLES
-songplay_table_drop = "DROP TABLE IF EXISTS songplays"
-user_table_drop = "DROP TABLE IF EXISTS users"
-song_table_drop = "DROP TABLE IF EXISTS songs"
-artist_table_drop = "DROP TABLE IF EXISTS artists"
-time_table_drop = "DROP TABLE IF EXISTS time"
+songplay_table_drop = "DROP TABLE IF EXISTS fact_songplays"
+user_table_drop = "DROP TABLE IF EXISTS dim_users"
+song_table_drop = "DROP TABLE IF EXISTS dim_songs"
+artist_table_drop = "DROP TABLE IF EXISTS dim_artists"
+time_table_drop = "DROP TABLE IF EXISTS dim_time"
 
 # CREATE TABLES
 songplay_table_create = """
     CREATE TABLE fact_songplays(
     songplay_id SERIAL NOT NULL,
-    start_time TIMESTAMP REFERENCES time(start_time),
-    user_id VARCHAR(50) REFERENCES users(user_id),
+    start_time TIMESTAMP REFERENCES dim_time(start_time),
+    user_id VARCHAR(50) REFERENCES dim_users(user_id),
     level VARCHAR(20),
-    song_id VARCHAR(100) REFERENCES songs(song_id),
-    artist_id VARCHAR(100) REFERENCES artists(artist_id),
+    song_id VARCHAR(100) REFERENCES dim_songs(song_id),
+    artist_id VARCHAR(100) REFERENCES dim_artists(artist_id),
     session_id INTEGER NOT NULL,
     location VARCHAR(255),
     user_agent TEXT,
     PRIMARY KEY (songplay_id))"""
 
 user_table_create = """
-    CREATE TABLE _dim_users(
+    CREATE TABLE dim_users(
     user_id VARCHAR NOT NULL,
     firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255) NOT NULL,
@@ -118,5 +118,4 @@ artist_select = """
 # QUERY LISTS
 create_table_queries = [user_table_create, song_table_create, artist_table_create, time_table_create,
                         songplay_table_create]
-drop_table_queries = [user_table_drop, song_table_drop, artist_table_drop, time_table_drop,
-                      songplay_table_drop]
+drop_table_queries = [songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]

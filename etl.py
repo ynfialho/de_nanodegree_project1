@@ -7,15 +7,15 @@ from sql_queries import *
 
 def process_song_file(cur, filepath):
     # open song file
-    df = 
+    df = pd.read_json(filepath, lines=True)
 
     # insert song record
-    song_data = 
-    cur.execute(song_table_insert, song_data)
+    #song_data = df[['song_id', 'title', 'artist_id', 'year', 'duration']].values[0].tolist()
+    #cur.execute(song_table_insert, song_data)
     
     # insert artist record
-    artist_data = 
-    cur.execute(artist_table_insert, artist_data)
+    #artist_data = 
+    #cur.execute(artist_table_insert, artist_data)
 
 
 def process_log_file(cur, filepath):
@@ -60,7 +60,7 @@ def process_log_file(cur, filepath):
         cur.execute(songplay_table_insert, songplay_data)
 
 
-def process_data(cur, conn, filepath, func):
+def process_data(cur, conn, filepath, func): 
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
