@@ -1,3 +1,6 @@
+"""
+Query centric script executed by ETL process.
+"""
 # DROP TABLES
 songplay_table_drop = "DROP TABLE IF EXISTS fact_songplays"
 user_table_drop = "DROP TABLE IF EXISTS dim_users"
@@ -100,20 +103,6 @@ song_select_join = """
         AND a.name = %s
         AND s.duration = %s"""
 
-# FIND USER BY ID
-user_select = """
-    SELECT COUNT(*) FROM dim_users u
-    WHERE u.user_id = %s"""
-
-# FIND SONG BY ID
-song_select = ("""
-    SELECT COUNT(*) FROM dim_songs s
-    WHERE s.song_id = %s""")
-
-# FIND ARTIST BY ID
-artist_select = """
-    SELECT COUNT(*) FROM dim_artists a
-    WHERE a.artist_id = %s"""
 
 # QUERY LISTS
 create_table_queries = [user_table_create, song_table_create, artist_table_create, time_table_create,
